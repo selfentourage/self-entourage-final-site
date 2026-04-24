@@ -71,7 +71,8 @@ section { padding: 26px 0; }
 .card p { color: var(--muted); line-height: 1.7; }
 .card .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .pill { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,89,122,0.08); color: var(--blue); }
-.offer-card { display: flex; flex-direction: column; gap: 14px; }
+.offer-card { display: flex; flex-direction: column; gap: 14px; position: relative; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.offer-card:hover { transform: translateY(-3px); border-color: rgba(0,89,122,0.18); box-shadow: 0 22px 56px rgba(8,20,28,.11); }
 .offer-card .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
 .offer-card .desc { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .content-panel { padding: 26px; }
@@ -109,5 +110,15 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: 
 .accordion details + details { margin-top: 12px; }
 .accordion summary { cursor: pointer; font-weight: 800; }
 .accordion .answer { padding-top: 10px; color: var(--muted); line-height: 1.7; }
-@media (max-width: 1080px) { .hero-grid, .product-layout, .two-col, .footer-grid { grid-template-columns: 1fr; } .pricebox { position: static; } .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .nav a:nth-child(n+7) { display: none; } }
-@media (max-width: 760px) { .topbar-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; } .brandmark { min-width: 0; } .nav { flex-direction: row; align-items: flex-start; gap: 8px; margin-top: 10px; justify-content: flex-start; } .nav a:nth-child(n+5) { display: none; } .grid-3, .grid-4 { grid-template-columns: 1fr; } .hero-copy, .content-panel, .card, .pricebox { padding: 20px; } h1 { font-size: 40px; } .hero-stats { grid-template-columns: 1fr; } .hero-highlights { grid-template-columns: 1fr; } .page-hero .actions { display: grid; grid-template-columns: 1fr 1fr; } }
+.store-stick { position: sticky; top: 88px; z-index: 40; padding: 12px 0; background: linear-gradient(180deg, rgba(246,246,243,.98), rgba(246,246,243,.86)); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,36,48,.06); }
+.store-stick .store-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.store-stick a { min-height: 42px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; font-weight: 800; font-size: 13px; background: #fff; border: 1px solid rgba(15,36,48,.1); color: var(--ink); box-shadow: 0 10px 28px rgba(8,20,28,.05); }
+.store-stick a:first-child { background: var(--dark); color: #fff; }
+.store-featured { background: linear-gradient(135deg, rgba(8,20,28,.98), rgba(0,89,122,.92)); color: #fff; border-color: rgba(255,255,255,.14); overflow: hidden; }
+.store-featured h2, .store-featured h3, .store-featured p { color: #fff; }
+.store-featured .pill { background: rgba(255,255,255,.12); color: #fff; }
+.store-featured .btn-secondary { background: #fff; color: var(--ink); }
+.store-featured-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.store-index .card { padding: 16px 18px; font-weight: 800; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; }
+@media (max-width: 1080px) { .hero-grid, .product-layout, .two-col, .footer-grid { grid-template-columns: 1fr; } .pricebox { position: static; } .grid-4, .store-featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .nav a:nth-child(n+7) { display: none; } }
+@media (max-width: 760px) { .topbar-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; } .brandmark { min-width: 0; } .nav { flex-direction: row; align-items: flex-start; gap: 8px; margin-top: 10px; justify-content: flex-start; } .nav a:nth-child(n+5) { display: none; } .grid-3, .grid-4, .store-featured-grid { grid-template-columns: 1fr; } .hero-copy, .content-panel, .card, .pricebox { padding: 20px; } h1 { font-size: 40px; } .hero-stats { grid-template-columns: 1fr; } .hero-highlights { grid-template-columns: 1fr; } .page-hero .actions { display: grid; grid-template-columns: 1fr 1fr; } .store-stick { top: 120px; overflow-x: auto; } .store-stick .store-nav { flex-wrap: nowrap; justify-content: flex-start; width: max-content; padding: 0 16px; } }
