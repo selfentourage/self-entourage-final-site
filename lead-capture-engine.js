@@ -1,10 +1,38 @@
-/* Self Entourage Phase 4 Lead Capture Engine */
-(function(){'use strict';var d=document;function ready(f){if(d.readyState!=='loading')f();else d.addEventListener('DOMContentLoaded',f);}ready(function(){var main=d.querySelector('main');if(main){var banner=d.createElement('div');banner.className='se-intake-banner';banner.innerHTML='<strong>Need the right path first?</strong><span>Use Start Here, book a consultation, or request a custom build path before buying the wrong offer.</span>';main.prepend(banner);}var mini=d.createElement('button');mini.type='button';mini.className='se-lead-mini';mini.innerHTML='⚡ <span>Need direction?</span>';d.body.appendChild(mini);
-var dock=d.createElement('div');dock.className='se-lead-dock';dock.innerHTML='<div class="se-lead-head"><button class="se-lead-close" aria-label="Close">×</button><strong>Choose your next move</strong><span>Get pointed correctly instead of guessing.</span></div><div class="se-lead-body"><div class="se-lead-options"><a href="start-here.html">Start Here <small>→</small></a><a href="contact.html">Book Consultation <small>→</small></a><button type="button" data-score>Find My Best Offer <small>→</small></button><a href="store.html">Browse Store <small>→</small></a></div><div class="se-lead-score">Fastest path: choose Start Here if you are unsure, Consultation if you need custom guidance, Store if you already know what you want.</div></div>';d.body.appendChild(dock);
-function open(){dock.classList.add('is-visible');mini.style.display='none';}
-function close(){dock.classList.remove('is-visible');mini.style.display='inline-flex';}
-setTimeout(open,3800);mini.onclick=open;dock.querySelector('.se-lead-close').onclick=close;
-dock.querySelector('[data-score]').onclick=function(){var p=(location.pathname.split('/').pop()||'index.html');var msg='Recommended path: Start Here.';if(/^product-/.test(p))msg='Recommended path: You are already on a product page. Book Consultation if you need help choosing.';dock.querySelector('.se-lead-score').textContent=msg;};
-var fired=false;window.addEventListener('scroll',function(){if(fired)return;var h=document.documentElement;var pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;if(pct>55){fired=true;open();}}, {passive:true});
-window.addEventListener('beforeunload',function(){try{localStorage.setItem('se_last_seen',Date.now().toString());}catch(e){}});
-});})();
+/* Self Entourage Phase 4 Lead Capture Engine - restrained public UX */
+(function(){
+  'use strict';
+  var d=document;
+  function ready(f){if(d.readyState!=='loading')f();else d.addEventListener('DOMContentLoaded',f);}
+  ready(function(){
+    if(d.querySelector('.se-lead-mini,.se-lead-dock')) return;
+    var mini=d.createElement('button');
+    mini.type='button';
+    mini.className='se-lead-mini';
+    mini.innerHTML='Need help choosing?';
+    d.body.appendChild(mini);
+
+    var dock=d.createElement('div');
+    dock.className='se-lead-dock';
+    dock.innerHTML='<div class="se-lead-head"><button class="se-lead-close" aria-label="Close">×</button><strong>Choose your next move</strong><span>Use one of these paths when you are ready.</span></div><div class="se-lead-body"><div class="se-lead-options"><a href="start-here.html">Start Here <small>best first step</small></a><a href="store.html">Browse Store <small>offers</small></a><a href="contact.html">Ask for Direction <small>custom help</small></a><button type="button" data-ai-intake>Use AI Intake <small>guided match</small></button></div><div class="se-lead-score">No pressure. If you are not sure, Start Here is the cleanest first move.</div></div>';
+    d.body.appendChild(dock);
+
+    function open(){dock.classList.add('is-visible');mini.classList.add('is-hidden');}
+    function close(){dock.classList.remove('is-visible');mini.classList.remove('is-hidden');try{sessionStorage.setItem('se_lead_closed','1');}catch(e){}}
+    mini.onclick=open;
+    dock.querySelector('.se-lead-close').onclick=close;
+    dock.querySelector('[data-ai-intake]').onclick=function(){close();var ai=d.querySelector('.se-ai-intake-launch');if(ai)ai.click();};
+
+    var closed=false;try{closed=sessionStorage.getItem('se_lead_closed')==='1';}catch(e){}
+    setTimeout(function(){if(!closed)mini.classList.add('is-visible');},9000);
+
+    var fired=false;
+    window.addEventListener('scroll',function(){
+      if(fired||closed) return;
+      var h=d.documentElement;
+      var max=h.scrollHeight-h.clientHeight;
+      if(max<=0) return;
+      var pct=(h.scrollTop/max)*100;
+      if(pct>72){fired=true;mini.classList.add('is-visible');}
+    },{passive:true});
+  });
+})();
