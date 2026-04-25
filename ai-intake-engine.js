@@ -12,7 +12,7 @@
 
     var wrap=d.createElement('div');
     wrap.className='se-ai-intake';
-    wrap.innerHTML='<div class="se-ai-card"><div class="se-ai-head"><button class="se-ai-close" aria-label="Close">×</button><strong>Find Your Best Path</strong><span>Answer a few quick questions and get routed to the right Self Entourage starting point.</span><div class="se-ai-progress"><i></i></div></div><div class="se-ai-body"></div></div>';
+    wrap.innerHTML='<div class="se-ai-card"><div class="se-ai-head"><button class="se-ai-close" aria-label="Close">×</button><strong>Find Your Best Path</strong><span>Answer a few quick questions and get routed to the right offer.</span><div class="se-ai-progress"><i></i></div></div><div class="se-ai-body"></div></div>';
     d.body.appendChild(wrap);
 
     var body=wrap.querySelector('.se-ai-body');
@@ -101,48 +101,54 @@
     }
 
     function getRecommendation(){
-      var rec='Start Here', href='start-here.html', label='Start Here';
-      var why='You need the cleanest first step before choosing a product or build path.';
-      var next='Use the guided starting page, then choose the offer that matches your situation.';
+      var rec={
+        title:'Foundation Snapshot',
+        type:'Clarity Offer',
+        href:'product-foundation-snapshot.html',
+        label:'View Foundation Snapshot',
+        why:'You need a clean diagnostic before choosing a bigger build.',
+        next:'Start with a snapshot so the next move is based on the real system gaps.'
+      };
 
-      if(data.need==='Clarity / Direction'){
-        rec='Start Here'; href='start-here.html'; label='Go to Start Here';
-        why='Your answers point to direction first. A bigger purchase should come after the path is clear.';
-        next='Start with the guided page or choose Foundation Snapshot / Crown Consult from the Store.';
+      if(data.need==='Clarity / Direction' && data.time==='Today / ASAP'){
+        rec={title:'Crown Consult 30',type:'Strategy Session',href:'product-crown-consult-30.html',label:'Book Crown Consult 30',why:'You need fast direction from a live strategy session.',next:'Book the 30-minute session and bring one clear situation to solve.'};
+      } else if(data.need==='Clarity / Direction' && data.budget==='Under $100'){
+        rec={title:'15-Minute Consultation',type:'Quick Start',href:'product-15-minute-consultation.html',label:'Book 15-Minute Consultation',why:'You need a low-friction route check before committing to a larger offer.',next:'Use the quick consultation to identify whether you should learn, build, or deploy next.'};
+      } else if(data.need==='Clarity / Direction'){
+        rec={title:'Foundation Snapshot',type:'Diagnostic',href:'product-foundation-snapshot.html',label:'Get Foundation Snapshot',why:'You need structure and direction before a bigger purchase.',next:'Complete the snapshot intake so the right path can be mapped.'};
       }
+
       if(data.need==='More Sales'){
-        rec='Store'; href='store.html#best-sellers'; label='View Best First Moves';
-        why='You are looking for momentum, offer clarity, and a direct buying path.';
-        next='Review Best First Moves, then choose the offer that matches your current stage.';
+        rec={title:'Builder Pack',type:'Best First Move',href:'product-builder-pack.html',label:'View Builder Pack',why:'You need offer movement, funnel structure, and a practical starter build.',next:'Use Builder Pack to move from scattered ideas into a clearer buyer path.'};
+        if(data.stage==='Growing Business' || data.budget==='$500-$2k') rec={title:'Neverloop Prime Launch',type:'Revenue System',href:'product-neverloop-prime-launch.html',label:'View Neverloop Prime Launch',why:'You need payments, offers, and delivery logic connected so sales can move cleanly.',next:'Start with the launch system if you are ready to wire revenue and fulfillment.'};
       }
-      if(data.need==='Premium Brand Presence'){
-        rec='Store'; href='store.html#build-offers'; label='View Build Offers';
-        why='A stronger brand presence usually needs a structured offer, system, or brand build behind it.';
-        next='Start with Build Offers or use Contact if the brand work needs custom scoping.';
-      }
+
       if(data.need==='Automation / Systems'){
-        rec='Build'; href='build.html'; label='Go to Build';
-        why='You are asking for structure, workflows, and implementation logic.';
-        next='Compare System Forge, Sovereign AI Package, and Ascension Build.';
+        rec={title:'System Forge',type:'System Build',href:'product-system-forge.html',label:'View System Forge',why:'You need one major workflow turned into a usable system.',next:'Start with System Forge when one area needs to be mapped, built, and handed off.'};
+        if(data.budget==='$2k+' || data.stage==='Established Operator') rec={title:'Sovereign AI Package',type:'Premium AI Build',href:'product-sovereign-ai-package.html',label:'View Sovereign AI Package',why:'You are ready for AI infrastructure, operating logic, and system-level support.',next:'Use this when AI needs to become the operating layer behind the business.'};
       }
+
+      if(data.need==='Premium Brand Presence'){
+        rec={title:'Codex Command System',type:'Brand OS',href:'product-codex-command-system.html',label:'View Codex Command System',why:'Your brand needs a language base, prompt vault, and consistent execution layer.',next:'Use the Codex build when the brand needs to sound and operate consistently.'};
+        if(data.budget==='Under $100') rec={title:'Signal Drop Package',type:'Content Starter',href:'product-signal-drop-package.html',label:'View Signal Drop Package',why:'You need a sharper public signal without a large build yet.',next:'Start with a signal drop to improve the next post, caption, or campaign.'};
+      }
+
       if(data.need==='Custom Build Help' || data.stage==='Established Operator' || data.budget==='$2k+'){
-        rec='Contact'; href='contact.html'; label='Send Direction Request';
-        why='Your answers suggest custom scoping is smarter than guessing from a product card.';
-        next='Send a direction request so Self Entourage can match the right build path before you commit.';
+        rec={title:'Ascension Build',type:'Advanced System Build',href:'product-ascension-build.html',label:'View Ascension Build',why:'Your answers suggest a larger connected system instead of a small isolated product.',next:'Review Ascension Build or send a direction request if the scope needs confirmation first.'};
       }
-      if(data.budget==='Under $100' && data.need!=='Custom Build Help'){
-        rec='Store'; href='store.html#quick-wins'; label='View Quick Wins';
-        why='A lower-risk starting point is the best fit right now.';
-        next='Start with Quick Wins, classes, or a short consultation before moving into larger work.';
+
+      if(data.stage==='Idea Stage' && data.budget==='Under $100'){
+        rec={title:'AI Foundations Class',type:'Learning Start',href:'product-ai-foundations-class.html',label:'View AI Foundations Class',why:'You are early enough that learning the foundation may be smarter than buying a big build.',next:'Take the class, then come back to the Store when you know what you want to build.'};
       }
-      return {rec:rec,href:href,why:why,next:next,label:label};
+
+      return rec;
     }
 
     function render5(){
       var r=getRecommendation();
-      var payload={need:data.need,stage:data.stage,time:data.time,budget:data.budget,recommendation:r.rec,page:(location.pathname.split('/').pop()||'index.html'),ts:new Date().toISOString()};
+      var payload={need:data.need,stage:data.stage,time:data.time,budget:data.budget,recommendation:r.title,type:r.type,href:r.href,page:(location.pathname.split('/').pop()||'index.html'),ts:new Date().toISOString()};
       try{localStorage.setItem('se_ai_intake',JSON.stringify(payload));}catch(e){}
-      body.innerHTML='<div class="se-ai-step is-active"><h3>Recommended Path</h3><div class="se-ai-result"><strong>'+r.rec+'</strong><span>'+r.why+'</span></div><div class="se-ai-result"><strong>Next Step</strong><span>'+r.next+'</span></div></div>';
+      body.innerHTML='<div class="se-ai-step is-active"><h3>Recommended Offer</h3><div class="se-ai-result"><strong>'+r.type+'</strong><span>'+r.title+'</span></div><div class="se-ai-result"><strong>Why This Fits</strong><span>'+r.why+'</span></div><div class="se-ai-result"><strong>Next Step</strong><span>'+r.next+'</span></div></div>';
       var a=d.createElement('div');
       a.className='se-ai-actions';
       var go=d.createElement('a');
@@ -150,14 +156,18 @@
       go.href=r.href;
       go.textContent=r.label;
       a.appendChild(go);
+      var store=d.createElement('a');
+      store.href='store.html';
+      store.textContent='Compare Store Options';
+      a.appendChild(store);
       var again=d.createElement('button');
       again.type='button';
       again.textContent='Start Over';
       again.onclick=restart;
       a.appendChild(again);
       var send=d.createElement('a');
-      send.href='mailto:selfentourage@gmail.com?subject=Self%20Entourage%20Direction%20Request&body=I%20completed%20the%20path%20finder.%0A%0ANeed:%20'+encodeURIComponent(data.need||'')+'%0AStage:%20'+encodeURIComponent(data.stage||'')+'%0ATimeline:%20'+encodeURIComponent(data.time||'')+'%0ABudget:%20'+encodeURIComponent(data.budget||'')+'%0ARecommended%20Path:%20'+encodeURIComponent(r.rec)+'%0A%0APlease%20help%20me%20choose%20the%20right%20next%20step.';
-      send.textContent='Send to Self Entourage';
+      send.href='mailto:selfentourage@gmail.com?subject=Self%20Entourage%20Offer%20Match&body=I%20completed%20the%20path%20finder.%0A%0ANeed:%20'+encodeURIComponent(data.need||'')+'%0AStage:%20'+encodeURIComponent(data.stage||'')+'%0ATimeline:%20'+encodeURIComponent(data.time||'')+'%0ABudget:%20'+encodeURIComponent(data.budget||'')+'%0ARecommended%20Offer:%20'+encodeURIComponent(r.title)+'%0A%0APlease%20confirm%20whether%20this%20is%20the%20right%20next%20step.';
+      send.textContent='Send Match to Self Entourage';
       a.appendChild(send);
       body.appendChild(a);
     }
