@@ -3,4 +3,13 @@ Self Entourage deployment check.
 Expected live homepage headline:
 The System That Builds You Back
 
-Created: 2026-04-25
+Expected repo:
+selfentourage/self-entourage-final-site
+
+Expected branch:
+main
+
+Triggered rebuild audit:
+2026-04-25 13:55 America/Denver
+
+If the live homepage still shows older copy after this commit deploys, selfentourage.com is not serving the current final-site repo root.
