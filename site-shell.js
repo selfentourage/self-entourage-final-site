@@ -86,19 +86,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (current.startsWith('product-')) document.querySelectorAll('.pricebox .btn').forEach(function (btn) { btn.classList.remove('btn-secondary'); btn.classList.add('btn-primary'); });
 
-  loadCssOnce('se-ux-fixes.css?v=7');
-  loadScriptOnce('catalog-navigation.js?v=3');
-  if (current === 'store.html') loadScriptOnce('store-filter-engine.js?v=2');
-  loadScriptOnce('buyer-assist-engine.js?v=2');
-  if (!isOwnerPage) { loadCssOnce('enhancements.css?v=1'); loadScriptOnce('enhancements.js?v=1'); }
+  loadCssOnce('se-ux-fixes.css?v=8');
+  loadScriptOnce('catalog-navigation.js?v=4');
+  if (current === 'store.html') loadScriptOnce('store-filter-engine.js?v=3');
+  if (!isOwnerPage) { loadCssOnce('enhancements.css?v=2'); loadScriptOnce('enhancements.js?v=2'); }
 
   const enablePublicGuidance = !isUtilityPage && !isOwnerPage;
   if (enablePublicGuidance) {
     loadCssOnce('credibility-engine.css?v=2');
     loadScriptOnce('credibility-engine.js?v=2');
-    loadCssOnce('lead-capture-engine.css?v=1');
-    loadScriptOnce('lead-capture-engine.js?v=1');
-    loadCssOnce('ai-intake-engine.css?v=2');
-    loadScriptOnce('ai-intake-engine.js?v=2');
+    loadCssOnce('ai-intake-engine.css?v=3');
+    loadScriptOnce('ai-intake-engine.js?v=3');
   }
 });
