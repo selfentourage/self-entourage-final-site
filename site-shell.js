@@ -72,8 +72,56 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
   </div>
 </footer>`;
+
   const oldHeader = document.querySelector('header.topbar');
   if (oldHeader) oldHeader.outerHTML = header;
   const oldFooter = document.querySelector('footer.footer');
   if (oldFooter) oldFooter.outerHTML = footer;
+
+  document.querySelectorAll('a[href="#"], a[href=""]').forEach(function (link) {
+    link.href = 'contact.html';
+    if (!link.textContent.trim() || link.textContent.trim() === '#') link.textContent = 'Ask for Direction';
+  });
+
+  document.querySelectorAll('a[href="sitemap.html"], a[href="sourcebook.html"]').forEach(function (link) {
+    link.remove();
+  });
+
+  document.querySelectorAll('.card, .offer-card, .pricebox, .section-head, .hero-copy').forEach(function (el) {
+    el.style.textAlign = 'center';
+  });
+
+  const main = document.querySelector('main');
+  const isUtilityPage = ['contact.html', 'legal.html', 'terms.html', 'privacy.html', 'refund.html', 'accessibility.html'].includes(current);
+  const hasFinalCta = document.querySelector('.store-cta, .final-cta, [data-global-cta]');
+
+  if (main && !hasFinalCta && !isUtilityPage) {
+    const cta = document.createElement('section');
+    cta.setAttribute('data-global-cta', 'true');
+    cta.className = 'content-panel';
+    cta.innerHTML = `
+      <div class="container">
+        <div class="card">
+          <span class="pill">Next Move</span>
+          <h2>Not sure which path fits?</h2>
+          <p>Start with the clearest door. Explore the offers, choose a first step, or send a message so the right system path can be matched to the work in front of you.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="store.html">View Offers</a>
+            <a class="btn btn-secondary" href="start-here.html">Start Here</a>
+            <a class="btn btn-ghost" href="contact.html">Ask for Direction</a>
+          </div>
+        </div>
+      </div>`;
+    main.appendChild(cta);
+  }
+
+  if (current.startsWith('product-')) {
+    document.querySelectorAll('.pricebox .btn').forEach(function (btn) {
+      btn.classList.remove('btn-secondary');
+      btn.classList.add('btn-primary');
+      if (!btn.textContent.trim().toLowerCase().includes('book') && !btn.textContent.trim().toLowerCase().includes('view') && !btn.textContent.trim().toLowerCase().includes('start')) {
+        btn.textContent = 'Start This Offer';
+      }
+    });
+  }
 });
