@@ -7,7 +7,7 @@
     var launch=d.createElement('button');
     launch.type='button';
     launch.className='se-ai-intake-launch';
-    launch.innerHTML='🧠 <span>Find My Path</span>';
+    launch.innerHTML='🧭 <span>Find My Path</span>';
     d.body.appendChild(launch);
 
     var wrap=d.createElement('div');
@@ -34,74 +34,121 @@
     function buttons(opts,key){
       var box=d.createElement('div');
       box.className='se-ai-options';
-      opts.forEach(function(t){
+      opts.forEach(function(item){
+        var value=Array.isArray(item)?item[0]:item;
+        var label=Array.isArray(item)?item[1]:item;
+        var note=Array.isArray(item)?item[2]:'';
         var b=d.createElement('button');
         b.type='button';
-        b.innerHTML=t+' <small>→</small>';
-        if(data[key]===t)b.classList.add('is-selected');
-        b.onclick=function(){data[key]=t;nav(step+1);};
+        b.innerHTML='<span><b>'+label+'</b>'+(note?'<em>'+note+'</em>':'')+'</span><small>→</small>';
+        if(data[key]===value)b.classList.add('is-selected');
+        b.onclick=function(){data[key]=value;nav(step+1);};
         box.appendChild(b);
       });
       body.appendChild(box);
     }
 
-    function actions(back){
+    function backOnly(){
       var a=d.createElement('div');
       a.className='se-ai-actions';
-      if(back){var b=d.createElement('button');b.textContent='Back';b.onclick=function(){nav(step-1);};a.appendChild(b);}
+      var b=d.createElement('button');
+      b.type='button';
+      b.textContent='Back';
+      b.onclick=function(){nav(step-1);};
+      a.appendChild(b);
       body.appendChild(a);
     }
 
-    function render1(){body.innerHTML='<div class="se-ai-step is-active"><h3>What do you need most?</h3><p>Choose the closest match so the site can point you in the right direction.</p></div>';buttons(['Clarity / Direction','More Sales','Automation / Systems','Premium Brand Presence','Custom Build Help'],'need');}
-    function render2(){body.innerHTML='<div class="se-ai-step is-active"><h3>What stage are you in?</h3><p>This helps separate quick-start support from deeper system builds.</p></div>';buttons(['Idea Stage','Early Revenue','Growing Business','Established Operator'],'stage');actions(true);}
-    function render3(){body.innerHTML='<div class="se-ai-step is-active"><h3>When do you need movement?</h3><p>Pick the timeline that feels most honest.</p></div>';buttons(['Today / ASAP','This Week','This Month','Exploring'],'time');actions(true);}
-    function render4(){body.innerHTML='<div class="se-ai-step is-active"><h3>What budget range feels realistic?</h3><p>This is used only to avoid recommending the wrong level of support.</p></div>';buttons(['Under $100','$100-$500','$500-$2k','$2k+'],'budget');actions(true);}
+    function render1(){
+      body.innerHTML='<div class="se-ai-step is-active"><h3>What do you need most?</h3><p>Choose the closest match. The answer routes you toward the cleanest next step.</p></div>';
+      buttons([
+        ['Clarity / Direction','Clarity / Direction','I need to know what to do first.'],
+        ['More Sales','More Sales','I need offers, buyers, or stronger conversion.'],
+        ['Automation / Systems','Automation / Systems','I need workflows, structure, or tools connected.'],
+        ['Premium Brand Presence','Premium Brand Presence','I need the brand to look sharper and feel credible.'],
+        ['Custom Build Help','Custom Build Help','I need something scoped around my exact situation.']
+      ],'need');
+    }
+    function render2(){
+      body.innerHTML='<div class="se-ai-step is-active"><h3>What stage are you in?</h3><p>This separates quick support from deeper system work.</p></div>';
+      buttons([
+        ['Idea Stage','Idea Stage','The concept exists, but the structure is not built yet.'],
+        ['Early Revenue','Early Revenue','There is movement, but the system needs clarity.'],
+        ['Growing Business','Growing Business','The work is real and needs better infrastructure.'],
+        ['Established Operator','Established Operator','The system needs custom strategy or expansion.']
+      ],'stage');
+      backOnly();
+    }
+    function render3(){
+      body.innerHTML='<div class="se-ai-step is-active"><h3>When do you need movement?</h3><p>Pick the timeline that feels most honest.</p></div>';
+      buttons([
+        ['Today / ASAP','Today / ASAP','I need direction immediately.'],
+        ['This Week','This Week','I am ready to move soon.'],
+        ['This Month','This Month','I am planning the next phase.'],
+        ['Exploring','Exploring','I am still learning what fits.']
+      ],'time');
+      backOnly();
+    }
+    function render4(){
+      body.innerHTML='<div class="se-ai-step is-active"><h3>What budget range feels realistic?</h3><p>This keeps the recommendation practical instead of oversized.</p></div>';
+      buttons([
+        ['Under $100','Under $100','Start small or learn first.'],
+        ['$100-$500','$100–$500','Consult, snapshot, class, or first build step.'],
+        ['$500-$2k','$500–$2k','Stronger strategy or build support.'],
+        ['$2k+','$2k+','Custom implementation or advanced system work.']
+      ],'budget');
+      backOnly();
+    }
 
     function getRecommendation(){
-      var rec='Start Here';
-      var href='start-here.html';
+      var rec='Start Here', href='start-here.html', label='Start Here';
       var why='You need the cleanest first step before choosing a product or build path.';
-      var next='Start with the path selector, then choose the offer that matches your situation.';
+      var next='Use the guided starting page, then choose the offer that matches your situation.';
 
+      if(data.need==='Clarity / Direction'){
+        rec='Start Here'; href='start-here.html'; label='Go to Start Here';
+        why='Your answers point to direction first. A bigger purchase should come after the path is clear.';
+        next='Start with the guided page or choose Foundation Snapshot / Crown Consult from the Store.';
+      }
       if(data.need==='More Sales'){
-        rec='Store'; href='store.html';
-        why='You are focused on offers, revenue, and buying the right support now.';
-        next='Go to the Store and start with Best First Moves or Build Offers.';
+        rec='Store'; href='store.html#best-sellers'; label='View Best First Moves';
+        why='You are looking for momentum, offer clarity, and a direct buying path.';
+        next='Review Best First Moves, then choose the offer that matches your current stage.';
       }
       if(data.need==='Premium Brand Presence'){
-        rec='Store'; href='store.html';
-        why='Brand presence usually starts with a productized offer, class, or build package.';
-        next='Review the Store categories and choose the brand or build offer that fits.';
+        rec='Store'; href='store.html#build-offers'; label='View Build Offers';
+        why='A stronger brand presence usually needs a structured offer, system, or brand build behind it.';
+        next='Start with Build Offers or use Contact if the brand work needs custom scoping.';
       }
-      if(data.need==='Clarity / Direction'){
-        rec='Start Here'; href='start-here.html';
-        why='You need direction before you buy something bigger.';
-        next='Start with the guided path and use a consult or snapshot if you need a sharper read.';
-      }
-      if(data.need==='Automation / Systems' && (data.budget==='$500-$2k' || data.budget==='$2k+')){
-        rec='Build'; href='build.html';
-        why='You are ready for structure, workflow design, and implementation planning.';
-        next='Go to Build and compare System Forge, Sovereign AI Package, and Ascension Build.';
+      if(data.need==='Automation / Systems'){
+        rec='Build'; href='build.html'; label='Go to Build';
+        why='You are asking for structure, workflows, and implementation logic.';
+        next='Compare System Forge, Sovereign AI Package, and Ascension Build.';
       }
       if(data.need==='Custom Build Help' || data.stage==='Established Operator' || data.budget==='$2k+'){
-        rec='Contact'; href='contact.html';
-        why='Your situation likely needs custom scoping before the right offer is chosen.';
-        next='Send a direction request so Self Entourage can match the right build path.';
+        rec='Contact'; href='contact.html'; label='Send Direction Request';
+        why='Your answers suggest custom scoping is smarter than guessing from a product card.';
+        next='Send a direction request so Self Entourage can match the right build path before you commit.';
       }
-      return {rec:rec,href:href,why:why,next:next};
+      if(data.budget==='Under $100' && data.need!=='Custom Build Help'){
+        rec='Store'; href='store.html#quick-wins'; label='View Quick Wins';
+        why='A lower-risk starting point is the best fit right now.';
+        next='Start with Quick Wins, classes, or a short consultation before moving into larger work.';
+      }
+      return {rec:rec,href:href,why:why,next:next,label:label};
     }
 
     function render5(){
       var r=getRecommendation();
       var payload={need:data.need,stage:data.stage,time:data.time,budget:data.budget,recommendation:r.rec,page:(location.pathname.split('/').pop()||'index.html'),ts:new Date().toISOString()};
       try{localStorage.setItem('se_ai_intake',JSON.stringify(payload));}catch(e){}
-      body.innerHTML='<div class="se-ai-step is-active"><h3>Recommended Path</h3><div class="se-ai-result"><strong>'+r.rec+'</strong><span>'+r.why+'</span></div><div class="se-ai-result"><strong>Next Step</strong><span>'+r.next+'</span></div><p class="se-ai-human-note">Your answers were saved privately in this browser so the owner tools can read the latest intake during review. No raw code is shown to the customer.</p></div>';
+      body.innerHTML='<div class="se-ai-step is-active"><h3>Recommended Path</h3><div class="se-ai-result"><strong>'+r.rec+'</strong><span>'+r.why+'</span></div><div class="se-ai-result"><strong>Next Step</strong><span>'+r.next+'</span></div></div>';
       var a=d.createElement('div');
       a.className='se-ai-actions';
       var go=d.createElement('a');
       go.className='primary';
       go.href=r.href;
-      go.textContent='Go to Recommended Path';
+      go.textContent=r.label;
       a.appendChild(go);
       var again=d.createElement('button');
       again.type='button';
@@ -110,7 +157,7 @@
       a.appendChild(again);
       var send=d.createElement('a');
       send.href='mailto:selfentourage@gmail.com?subject=Self%20Entourage%20Direction%20Request&body=I%20completed%20the%20path%20finder.%0A%0ANeed:%20'+encodeURIComponent(data.need||'')+'%0AStage:%20'+encodeURIComponent(data.stage||'')+'%0ATimeline:%20'+encodeURIComponent(data.time||'')+'%0ABudget:%20'+encodeURIComponent(data.budget||'')+'%0ARecommended%20Path:%20'+encodeURIComponent(r.rec)+'%0A%0APlease%20help%20me%20choose%20the%20right%20next%20step.';
-      send.textContent='Send This to Self Entourage';
+      send.textContent='Send to Self Entourage';
       a.appendChild(send);
       body.appendChild(a);
     }
