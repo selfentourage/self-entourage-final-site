@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </a>
     <nav class="nav" aria-label="Primary navigation">
       <a href="index.html"${isActive('index.html')}>Home</a>
-      <div class="nav-group explore-group"><button class="nav-trigger${exploreActive}" type="button">Explore ▾</button><div class="nav-menu"><a href="explore.html">Explore Hub</a><a href="truth-os.html">Truth OS</a><a href="black-crown.html">Black Crown</a><a href="neverloop.html">Neverloop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="faq.html">FAQ</a></div></div>
+      <div class="nav-group explore-group"><button class="nav-trigger${exploreActive}" type="button">Explore ▾</button><div class="nav-menu"><a href="truth-os.html">Truth OS</a><a href="black-crown.html">Black Crown</a><a href="neverloop.html">Neverloop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="faq.html">FAQ</a></div></div>
       <a href="start-here.html"${isActive('start-here.html')}>Start Here</a>
       <a href="store.html"${isActive('store.html')}>Store</a>
       <a href="learn.html"${isActive('learn.html')}>Learn</a>
