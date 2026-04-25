@@ -91,8 +91,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  loadCssOnce('se-ux-fixes.css?v=3');
+  loadCssOnce('se-ux-fixes.css?v=4');
   loadScriptOnce('catalog-navigation.js?v=2');
+  if (current === 'store.html') loadScriptOnce('store-filter-engine.js?v=1');
   if (!isOwnerPage) {
     loadCssOnce('enhancements.css?v=1');
     loadScriptOnce('enhancements.js?v=1');
