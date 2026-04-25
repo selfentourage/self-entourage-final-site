@@ -112,9 +112,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const main = document.querySelector('main');
   const isUtilityPage = ['contact.html', 'legal.html', 'terms.html', 'privacy.html', 'refund.html', 'accessibility.html'].includes(current);
+  const isOwnerPage = ['owner-control-center.html', 'crm-engine.html', 'revenue-engine.html', 'executive-command-center.html', 'customer-acquisition-engine.html', 'traffic-domination-engine.html', 'install-enhancements.html'].includes(current);
   const hasFinalCta = document.querySelector('.store-cta, .final-cta, [data-global-cta]');
 
-  if (main && !hasFinalCta && !isUtilityPage) {
+  if (main && !hasFinalCta && !isUtilityPage && !isOwnerPage) {
     const cta = document.createElement('section');
     cta.setAttribute('data-global-cta', 'true');
     cta.className = 'content-panel';
@@ -138,21 +139,33 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.pricebox .btn').forEach(function (btn) {
       btn.classList.remove('btn-secondary');
       btn.classList.add('btn-primary');
-      if (!btn.textContent.trim().toLowerCase().includes('book') && !btn.textContent.trim().toLowerCase().includes('view') && !btn.textContent.trim().toLowerCase().includes('start')) {
-        btn.textContent = 'Start This Offer';
-      }
     });
   }
 
-  const enableCredibility = !isUtilityPage && !document.body.dataset.noCredibilityEngine;
+  if (!isOwnerPage) {
+    loadCssOnce('enhancements.css?v=1');
+    loadScriptOnce('enhancements.js?v=1');
+  }
+
+  const enableSales = !isUtilityPage && !isOwnerPage && !document.body.dataset.noSalesEngine;
+  if (enableSales) {
+    loadCssOnce('sales-engine.css?v=1');
+    loadScriptOnce('sales-engine.js?v=1');
+  }
+
+  const enableCredibility = !isUtilityPage && !isOwnerPage && !document.body.dataset.noCredibilityEngine;
   if (enableCredibility) {
     loadCssOnce('credibility-engine.css?v=1');
     loadScriptOnce('credibility-engine.js?v=1');
   }
 
-  const enableLeadCapture = !isUtilityPage && !document.body.dataset.noLeadCaptureEngine;
+  const enableLeadCapture = !isUtilityPage && !isOwnerPage && !document.body.dataset.noLeadCaptureEngine;
   if (enableLeadCapture) {
     loadCssOnce('lead-capture-engine.css?v=1');
     loadScriptOnce('lead-capture-engine.js?v=1');
+    loadCssOnce('ai-intake-engine.css?v=1');
+    loadScriptOnce('ai-intake-engine.js?v=1');
+    loadCssOnce('automation-bridge.css?v=1');
+    loadScriptOnce('automation-bridge.js?v=1');
   }
 });
