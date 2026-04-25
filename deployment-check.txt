@@ -1,0 +1,6 @@
+Self Entourage deployment check.
+
+Expected live homepage headline:
+The System That Builds You Back
+
+Created: 2026-04-25
