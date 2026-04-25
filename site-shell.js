@@ -1,6 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
   const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const isActive = (file) => current === file ? ' class="active"' : '';
+
+  function loadCssOnce(href) {
+    if (!document.querySelector('link[href="' + href + '"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+  }
+
+  function loadScriptOnce(src) {
+    if (!document.querySelector('script[src="' + src + '"]')) {
+      const script = document.createElement('script');
+      script.src = src;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }
+
   const header = `
 <header class="topbar">
   <div class="container topbar-inner">
@@ -123,5 +142,11 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.textContent = 'Start This Offer';
       }
     });
+  }
+
+  const enableCredibility = !isUtilityPage && !document.body.dataset.noCredibilityEngine;
+  if (enableCredibility) {
+    loadCssOnce('credibility-engine.css?v=1');
+    loadScriptOnce('credibility-engine.js?v=1');
   }
 });
