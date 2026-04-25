@@ -58,37 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
       <p class="notice">© 2026 Self Entourage LLC. All rights reserved.</p>
     </div>
-    <div class="card">
-      <h3>Navigate</h3>
-      <a href="index.html">Home</a>
-      <a href="explore.html">Explore</a>
-      <a href="start-here.html">Start Here</a>
-      <a href="store.html">Store</a>
-      <a href="learn.html">Learn</a>
-      <a href="build.html">Build</a>
-      <a href="deploy.html">Deploy</a>
-      <a href="memberships.html">Memberships</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="card">
-      <h3>Explore</h3>
-      <a href="truth-os.html">Truth OS</a>
-      <a href="black-crown.html">Black Crown</a>
-      <a href="neverloop.html">Neverloop</a>
-      <a href="services.html">Services</a>
-      <a href="private-programs.html">Private Programs</a>
-      <a href="intensives-and-reservations.html">Intensives & Reservations</a>
-    </div>
-    <div class="card">
-      <h3>Support</h3>
-      <a href="about.html">About</a>
-      <a href="faq.html">FAQ</a>
-      <a href="legal.html">Legal</a>
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="refund.html">Refund Policy</a>
-      <a href="accessibility.html">Accessibility</a>
-    </div>
+    <div class="card"><h3>Navigate</h3><a href="index.html">Home</a><a href="explore.html">Explore</a><a href="start-here.html">Start Here</a><a href="store.html">Store</a><a href="learn.html">Learn</a><a href="build.html">Build</a><a href="deploy.html">Deploy</a><a href="memberships.html">Memberships</a><a href="contact.html">Contact</a></div>
+    <div class="card"><h3>Explore</h3><a href="truth-os.html">Truth OS</a><a href="black-crown.html">Black Crown</a><a href="neverloop.html">Neverloop</a><a href="services.html">Services</a><a href="private-programs.html">Private Programs</a><a href="intensives-and-reservations.html">Intensives & Reservations</a></div>
+    <div class="card"><h3>Support</h3><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund.html">Refund Policy</a><a href="accessibility.html">Accessibility</a></div>
   </div>
 </footer>`;
 
@@ -101,14 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
     link.href = 'contact.html';
     if (!link.textContent.trim() || link.textContent.trim() === '#') link.textContent = 'Ask for Direction';
   });
-
-  document.querySelectorAll('a[href="sitemap.html"], a[href="sourcebook.html"]').forEach(function (link) {
-    link.remove();
-  });
-
-  document.querySelectorAll('.card, .offer-card, .pricebox, .section-head, .hero-copy').forEach(function (el) {
-    el.style.textAlign = 'center';
-  });
+  document.querySelectorAll('a[href="sitemap.html"], a[href="sourcebook.html"]').forEach(function (link) { link.remove(); });
+  document.querySelectorAll('.card, .offer-card, .pricebox, .section-head, .hero-copy').forEach(function (el) { el.style.textAlign = 'center'; });
 
   const main = document.querySelector('main');
   const isUtilityPage = ['contact.html', 'legal.html', 'terms.html', 'privacy.html', 'refund.html', 'accessibility.html'].includes(current);
@@ -119,19 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cta = document.createElement('section');
     cta.setAttribute('data-global-cta', 'true');
     cta.className = 'content-panel';
-    cta.innerHTML = `
-      <div class="container">
-        <div class="card">
-          <span class="pill">Next Move</span>
-          <h2>Not sure which path fits?</h2>
-          <p>Start with the clearest door. Explore the offers, choose a first step, or send a message so the right system path can be matched to the work in front of you.</p>
-          <div class="actions">
-            <a class="btn btn-primary" href="store.html">View Offers</a>
-            <a class="btn btn-secondary" href="start-here.html">Start Here</a>
-            <a class="btn btn-ghost" href="contact.html">Ask for Direction</a>
-          </div>
-        </div>
-      </div>`;
+    cta.innerHTML = `<div class="container"><div class="card"><span class="pill">Next Move</span><h2>Not sure which path fits?</h2><p>Start with the clearest door. Explore the offers, choose a first step, or send a message so the right system path can be matched to the work in front of you.</p><div class="actions"><a class="btn btn-primary" href="store.html">View Offers</a><a class="btn btn-secondary" href="start-here.html">Start Here</a><a class="btn btn-ghost" href="contact.html">Ask for Direction</a></div></div></div>`;
     main.appendChild(cta);
   }
 
@@ -147,25 +101,16 @@ document.addEventListener('DOMContentLoaded', function () {
     loadScriptOnce('enhancements.js?v=1');
   }
 
-  const enableSales = !isUtilityPage && !isOwnerPage && !document.body.dataset.noSalesEngine;
-  if (enableSales) {
-    loadCssOnce('sales-engine.css?v=1');
-    loadScriptOnce('sales-engine.js?v=1');
-  }
-
-  const enableCredibility = !isUtilityPage && !isOwnerPage && !document.body.dataset.noCredibilityEngine;
-  if (enableCredibility) {
+  const enablePublicGuidance = !isUtilityPage && !isOwnerPage;
+  if (enablePublicGuidance) {
     loadCssOnce('credibility-engine.css?v=1');
     loadScriptOnce('credibility-engine.js?v=1');
-  }
-
-  const enableLeadCapture = !isUtilityPage && !isOwnerPage && !document.body.dataset.noLeadCaptureEngine;
-  if (enableLeadCapture) {
     loadCssOnce('lead-capture-engine.css?v=1');
     loadScriptOnce('lead-capture-engine.js?v=1');
     loadCssOnce('ai-intake-engine.css?v=1');
     loadScriptOnce('ai-intake-engine.js?v=1');
-    loadCssOnce('automation-bridge.css?v=1');
-    loadScriptOnce('automation-bridge.js?v=1');
   }
+
+  // Restraint pass: sales and automation bridge stay available in the repo, but no longer auto-load on public pages.
+  // Enable them later only after checking live UX and connecting a real backend endpoint.
 });
