@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  loadCssOnce('se-ux-fixes.css?v=1');
-  loadScriptOnce('catalog-navigation.js?v=1');
+  loadCssOnce('se-ux-fixes.css?v=2');
+  loadScriptOnce('catalog-navigation.js?v=2');
   if (!isOwnerPage) {
     loadCssOnce('enhancements.css?v=1');
     loadScriptOnce('enhancements.js?v=1');
@@ -101,11 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const enablePublicGuidance = !isUtilityPage && !isOwnerPage;
   if (enablePublicGuidance) {
-    loadCssOnce('credibility-engine.css?v=1');
-    loadScriptOnce('credibility-engine.js?v=1');
+    loadCssOnce('credibility-engine.css?v=2');
+    loadScriptOnce('credibility-engine.js?v=2');
     loadCssOnce('lead-capture-engine.css?v=1');
     loadScriptOnce('lead-capture-engine.js?v=1');
-    loadCssOnce('ai-intake-engine.css?v=1');
-    loadScriptOnce('ai-intake-engine.js?v=1');
+    loadCssOnce('ai-intake-engine.css?v=2');
+    loadScriptOnce('ai-intake-engine.js?v=2');
   }
 });
