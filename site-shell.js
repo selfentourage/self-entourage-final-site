@@ -149,4 +149,10 @@ document.addEventListener('DOMContentLoaded', function () {
     loadCssOnce('credibility-engine.css?v=1');
     loadScriptOnce('credibility-engine.js?v=1');
   }
+
+  const enableLeadCapture = !isUtilityPage && !document.body.dataset.noLeadCaptureEngine;
+  if (enableLeadCapture) {
+    loadCssOnce('lead-capture-engine.css?v=1');
+    loadScriptOnce('lead-capture-engine.js?v=1');
+  }
 });
