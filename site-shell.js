@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   loadCssOnce('se-ux-fixes.css?v=1');
+  loadScriptOnce('catalog-navigation.js?v=1');
   if (!isOwnerPage) {
     loadCssOnce('enhancements.css?v=1');
     loadScriptOnce('enhancements.js?v=1');
