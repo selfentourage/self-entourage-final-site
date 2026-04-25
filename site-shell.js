@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  const exploreActive = ['explore.html','services.html','truth-os.html','black-crown.html','neverloop.html','about.html','faq.html'].includes(current) ? ' active' : '';
   const programsActive = ['private-programs.html','intensives-and-reservations.html'].includes(current) ? ' active' : '';
 
   const header = `
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </a>
     <nav class="nav" aria-label="Primary navigation">
       <a href="index.html"${isActive('index.html')}>Home</a>
-      <div class="nav-group explore-group"><button class="nav-trigger${exploreActive}" type="button">Explore ▾</button><div class="nav-menu"><a href="truth-os.html">Truth OS</a><a href="black-crown.html">Black Crown</a><a href="neverloop.html">Neverloop</a><a href="services.html">Services</a><a href="about.html">About</a><a href="faq.html">FAQ</a></div></div>
+      <a href="explore.html"${isActive('explore.html')}>Explore</a>
       <a href="start-here.html"${isActive('start-here.html')}>Start Here</a>
       <a href="store.html"${isActive('store.html')}>Store</a>
       <a href="learn.html"${isActive('learn.html')}>Learn</a>
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  loadCssOnce('se-ux-fixes.css?v=2');
+  loadCssOnce('se-ux-fixes.css?v=3');
   loadScriptOnce('catalog-navigation.js?v=2');
   if (!isOwnerPage) {
     loadCssOnce('enhancements.css?v=1');
