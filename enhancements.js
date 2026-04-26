@@ -41,5 +41,13 @@
     d.querySelectorAll('a[href^="http"]').forEach(function(a){
       if(!a.hasAttribute('target')){a.target='_blank';a.rel='noopener noreferrer';}
     });
+
+    if(!d.querySelector('.se-quick-actions')){
+      var quick=d.createElement('div');
+      quick.className='se-quick-actions';
+      quick.setAttribute('aria-label','Quick actions');
+      quick.innerHTML='\n        <a class="se-quick-bubble se-quick-primary" href="product-foundation-snapshot.html"><span>Start</span></a>\n        <a class="se-quick-bubble" href="store.html"><span>Store</span></a>\n        <a class="se-quick-bubble" href="contact.html"><span>Ask</span></a>\n      ';
+      d.body.appendChild(quick);
+    }
   });
 })();
